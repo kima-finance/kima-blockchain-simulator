@@ -1,13 +1,14 @@
 /** @format */
 
 import express from 'express';
-import { generateId, transactionRegistry } from '../storage';
+import { addTransaction, generateId } from '../storage';
+import { Transaction } from '../interfaces/Transaction';
 
 const router = express.Router();
 
 type SubmitResponse = {
   status: 'success' | 'error';
-  id?: string;
+  transaction?: Transaction;
 };
 
 router.post<{}, SubmitResponse>('/', async (req, res) => {
@@ -24,7 +25,7 @@ router.post<{}, SubmitResponse>('/', async (req, res) => {
 
   const id = generateId();
 
-  transactionRegistry.push({
+  const transaction: Transaction = {
     id,
     type: 'transfer',
     internalTransactions: {
@@ -46,9 +47,11 @@ router.post<{}, SubmitResponse>('/', async (req, res) => {
     },
     data,
     status: 'recorded',
-  });
+  };
 
-  res.json({ status: 'success', id });
+  addTransaction(transaction);
+
+  res.json({ status: 'success', transaction });
 });
 
 export default router;

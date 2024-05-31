@@ -69,7 +69,7 @@ export const transferFrom = async ({
     args: [
       originAddress,
       poolAccount.address,
-      parseUnits((amount + fee).toString(), token.decimals),
+      parseUnits((Number(amount) + Number(fee)).toString(), token.decimals),
     ],
   });
   const hash = await originWalletClient.writeContract(request);
