@@ -2,26 +2,17 @@
 
 export interface Transaction {
   id: string;
-  type: 'transfer';
+  type: 'transfer' | 'dvp';
   internalTransactions: {
-    origin: {
-      address: `0x${string}`;
-      chainShortName: string;
-      symbol: string;
-      amount: number;
-      fee: number;
-      status: string;
-      hash?: `0x${string}`;
-    };
-    target: {
-      address: `0x${string}`;
-      chainShortName: string;
-      symbol: string;
-      amount: number;
-      status: string;
-      hash?: `0x${string}`;
-    };
-  };
+    type: 'inbound' | 'outbound' | 'inbound_reverted' | 'outbound_reverted';
+    address: `0x${string}`;
+    chainShortName: string;
+    symbol: string;
+    amount: number;
+    fee: number;
+    status: string;
+    hash?: `0x${string}`;
+  }[];
   data?: string;
   status: string;
 }

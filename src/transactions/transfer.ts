@@ -4,6 +4,7 @@ import { createPublicClient, createWalletClient, http, parseUnits } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { getChainByShortName } from '../chains';
 import { TOKEN_ADDRESSES } from '../config/tokens';
+import { erc20Abi } from 'viem';
 
 type TransferFromParams = {
   originAddress: string;
@@ -19,22 +20,6 @@ type TransferToParams = {
   symbol: string;
   amount: number;
 };
-
-const contractABI = [
-  {
-    constant: false,
-    inputs: [
-      { name: '_from', type: 'address' },
-      { name: '_to', type: 'address' },
-      { name: '_value', type: 'uint256' },
-    ],
-    name: 'transferFrom',
-    outputs: [{ name: 'success', type: 'bool' }],
-    payable: false,
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-];
 
 export const transferFrom = async ({
   originAddress,
@@ -64,10 +49,10 @@ export const transferFrom = async ({
   const { request } = await originPublicClient.simulateContract({
     account: poolAccount,
     address: token.address,
-    abi: contractABI,
+    abi: erc20Abi,
     functionName: 'transferFrom',
     args: [
-      originAddress,
+      originAddress as `0x${string}`,
       poolAccount.address,
       parseUnits((Number(amount) + Number(fee)).toString(), token.decimals),
     ],
@@ -105,11 +90,11 @@ export const transferTo = async ({
   const { request } = await targetPublicClient.simulateContract({
     account: poolAccount,
     address: token.address,
-    abi: contractABI,
+    abi: erc20Abi,
     functionName: 'transferFrom',
     args: [
       poolAccount.address,
-      targetAddress,
+      targetAddress as `0x${string}`,
       parseUnits(amount.toString(), token.decimals),
     ],
   });

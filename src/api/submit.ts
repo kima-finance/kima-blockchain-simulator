@@ -15,39 +15,92 @@ router.post<{}, SubmitResponse>('/', async (req, res) => {
   const {
     originAddress,
     originChain,
+    originAmount,
+    originSymbol,
     targetAddress,
     targetChain,
-    symbol,
-    amount,
+    targetAmount,
+    targetSymbol,
     fee,
     data,
   } = req.body;
 
   const id = generateId();
+  let transaction: Transaction;
 
-  const transaction: Transaction = {
-    id,
-    type: 'transfer',
-    internalTransactions: {
-      origin: {
-        address: originAddress,
-        chainShortName: originChain,
-        symbol: symbol,
-        amount: amount,
-        fee: fee,
-        status: 'pending',
-      },
-      target: {
-        address: targetAddress,
-        chainShortName: targetChain,
-        symbol: symbol,
-        amount: amount,
-        status: 'pending',
-      },
-    },
-    data,
-    status: 'recorded',
-  };
+  if (originSymbol !== targetSymbol) {
+    transaction = {
+      id,
+      type: 'dvp',
+      internalTransactions: [
+        {
+          type: 'inbound',
+          address: originAddress,
+          chainShortName: originChain,
+          symbol: originSymbol,
+          amount: originAmount,
+          fee: fee,
+          status: 'pending',
+        },
+        {
+          type: 'inbound',
+          address: targetAddress,
+          chainShortName: targetChain,
+          symbol: targetSymbol,
+          amount: targetAmount,
+          fee: fee,
+          status: 'pending',
+        },
+        {
+          type: 'outbound',
+          address: targetAddress,
+          chainShortName: originChain,
+          symbol: originSymbol,
+          amount: originAmount,
+          fee: fee,
+          status: 'pending',
+        },
+        {
+          type: 'outbound',
+          address: originAddress,
+          chainShortName: targetChain,
+          symbol: targetSymbol,
+          amount: targetAmount,
+          fee: fee,
+          status: 'pending',
+        },
+      ],
+      data,
+      status: 'recorded',
+    };
+  } else {
+    transaction = {
+      id,
+      type: 'transfer',
+      internalTransactions: [
+        {
+          type: 'inbound',
+          address: originAddress,
+          chainShortName: originChain,
+          symbol: originSymbol,
+          amount: originAmount,
+          fee: fee,
+          status: 'pending',
+        },
+        {
+          type: 'outbound',
+          address: targetAddress,
+          chainShortName: targetChain,
+          symbol: targetSymbol,
+          amount: targetAmount,
+          fee: fee,
+          status: 'pending',
+        },
+      ],
+      data,
+      status: 'recorded',
+    };
+  }
 
   addTransaction(transaction);
 

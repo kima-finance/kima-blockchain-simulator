@@ -87,7 +87,6 @@ describe('GET /api/v1/status', () => {
       .expect(200)
       .then((submitResponse) => {
         const id = submitResponse.body.transaction.id;
-        console.log('id', id);
         request(app)
           .get(`/api/v1/status?id=${id}`)
           .set('Accept', 'application/json')
