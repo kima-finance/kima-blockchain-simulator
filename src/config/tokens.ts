@@ -1,5 +1,7 @@
 /** @format */
 
+import { http } from 'viem';
+
 export const TOKEN_ADDRESSES: {
   [key: string]: {
     [key: string]: { address: `0x${string}`; decimals: number };
@@ -21,4 +23,16 @@ export const TOKEN_ADDRESSES: {
       decimals: 6,
     },
   },
+};
+
+export const getTrasportForChainShortName = (chainShortName: string) => {
+  return chainShortName === 'sep'
+    ? http(
+        `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      )
+    : chainShortName === 'polygonamoy'
+      ? http(
+          `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+        )
+      : http();
 };

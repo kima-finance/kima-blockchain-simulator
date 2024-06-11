@@ -1,12 +1,11 @@
 /** @format */
 
-import { createPublicClient, http } from 'viem';
+import { createPublicClient } from 'viem';
 import { transferFrom, transferTo } from '../transactions';
 import { getChainByShortName } from '../chains';
 import { getTransactions, updateTransaction } from '../storage';
 import { Transaction } from '../interfaces/Transaction';
-
-const transport = http();
+import { getTrasportForChainShortName } from '../config/tokens';
 
 const recordedHandler = async (transaction: Transaction) => {
   await Promise.all(
@@ -40,7 +39,9 @@ const inboundPendingHandler = async (transaction: Transaction) => {
         .map(async (internalTransaction) => {
           const publicClient = createPublicClient({
             chain: getChainByShortName(internalTransaction.chainShortName),
-            transport,
+            transport: getTrasportForChainShortName(
+              internalTransaction.chainShortName,
+            ),
           });
           const receipt = await publicClient.getTransactionReceipt({
             hash: internalTransaction.hash!,
@@ -145,7 +146,9 @@ const inboundRevertPendingHandler = async (transaction: Transaction) => {
         .map(async (internalTransaction) => {
           const publicClient = createPublicClient({
             chain: getChainByShortName(internalTransaction.chainShortName),
-            transport,
+            transport: getTrasportForChainShortName(
+              internalTransaction.chainShortName,
+            ),
           });
           const receipt = await publicClient.getTransactionReceipt({
             hash: internalTransaction.hash!,
@@ -192,7 +195,9 @@ const outboundPendingHandler = async (transaction: Transaction) => {
         .map(async (internalTransaction) => {
           const publicClient = createPublicClient({
             chain: getChainByShortName(internalTransaction.chainShortName),
-            transport,
+            transport: getTrasportForChainShortName(
+              internalTransaction.chainShortName,
+            ),
           });
           const receipt = await publicClient.getTransactionReceipt({
             hash: internalTransaction.hash!,
