@@ -28,15 +28,15 @@ const recordedHandler = async (transaction: Transaction) => {
 };
 
 const inboundPendingHandler = async (transaction: Transaction) => {
-  try {
-    await Promise.all(
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) =>
-            internalTransaction.type === 'inbound' &&
-            internalTransaction.status !== 'success',
-        )
-        .map(async (internalTransaction) => {
+  await Promise.all(
+    transaction.internalTransactions
+      .filter(
+        (internalTransaction) =>
+          internalTransaction.type === 'inbound' &&
+          internalTransaction.status !== 'success',
+      )
+      .map(async (internalTransaction) => {
+        try {
           const publicClient = createPublicClient({
             chain: getChainByShortName(internalTransaction.chainShortName),
             transport: getTrasportForChainShortName(
@@ -47,31 +47,29 @@ const inboundPendingHandler = async (transaction: Transaction) => {
             hash: internalTransaction.hash!,
           });
           internalTransaction.status = receipt.status;
-        }),
-    );
-    if (
-      transaction.internalTransactions
-        .filter((internalTransaction) => internalTransaction.type === 'inbound')
-        .every(
-          (internalTransaction) => internalTransaction.status === 'success',
-        )
-    ) {
-      transaction.status = 'inbound_success';
-    } else if (
-      transaction.internalTransactions
-        .filter((internalTransaction) => internalTransaction.type === 'inbound')
-        .some(
-          (internalTransaction) =>
-            internalTransaction.type === 'inbound' &&
-            internalTransaction.status === 'reverted',
-        )
-    ) {
-      transaction.status = 'inbound_revert';
-    }
-    updateTransaction(transaction);
-  } catch (e) {
-    console.log('The Transaction may not be processed on a block yet.');
+        } catch (e) {
+          console.log('The Transaction may not be processed on a block yet.');
+        }
+      }),
+  );
+  if (
+    transaction.internalTransactions
+      .filter((internalTransaction) => internalTransaction.type === 'inbound')
+      .every((internalTransaction) => internalTransaction.status === 'success')
+  ) {
+    transaction.status = 'inbound_success';
+  } else if (
+    transaction.internalTransactions
+      .filter((internalTransaction) => internalTransaction.type === 'inbound')
+      .some(
+        (internalTransaction) =>
+          internalTransaction.type === 'inbound' &&
+          internalTransaction.status === 'reverted',
+      )
+  ) {
+    transaction.status = 'inbound_revert';
   }
+  updateTransaction(transaction);
 };
 
 const inboundSuccessHandler = async (transaction: Transaction) => {
@@ -136,14 +134,14 @@ const inboundRevertHandler = async (transaction: Transaction) => {
 };
 
 const inboundRevertPendingHandler = async (transaction: Transaction) => {
-  try {
-    await Promise.all(
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) =>
-            internalTransaction.type === 'inbound_reverted',
-        )
-        .map(async (internalTransaction) => {
+  await Promise.all(
+    transaction.internalTransactions
+      .filter(
+        (internalTransaction) =>
+          internalTransaction.type === 'inbound_reverted',
+      )
+      .map(async (internalTransaction) => {
+        try {
           const publicClient = createPublicClient({
             chain: getChainByShortName(internalTransaction.chainShortName),
             transport: getTrasportForChainShortName(
@@ -154,45 +152,39 @@ const inboundRevertPendingHandler = async (transaction: Transaction) => {
             hash: internalTransaction.hash!,
           });
           internalTransaction.status = receipt.status;
-        }),
-    );
-    if (
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) =>
-            internalTransaction.type === 'inbound_reverted',
-        )
-        .every(
-          (internalTransaction) => internalTransaction.status === 'success',
-        )
-    ) {
-      transaction.status = 'inbound_reverted_success';
-    } else if (
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) =>
-            internalTransaction.type === 'inbound_reverted',
-        )
-        .some(
-          (internalTransaction) => internalTransaction.status === 'reverted',
-        )
-    ) {
-      transaction.status = 'inbound_revert';
-    }
-    updateTransaction(transaction);
-  } catch (e) {
-    console.log('The Transaction may not be processed on a block yet.');
+        } catch (e) {
+          console.log('The Transaction may not be processed on a block yet.');
+        }
+      }),
+  );
+  if (
+    transaction.internalTransactions
+      .filter(
+        (internalTransaction) =>
+          internalTransaction.type === 'inbound_reverted',
+      )
+      .every((internalTransaction) => internalTransaction.status === 'success')
+  ) {
+    transaction.status = 'inbound_reverted_success';
+  } else if (
+    transaction.internalTransactions
+      .filter(
+        (internalTransaction) =>
+          internalTransaction.type === 'inbound_reverted',
+      )
+      .some((internalTransaction) => internalTransaction.status === 'reverted')
+  ) {
+    transaction.status = 'inbound_revert';
   }
+  updateTransaction(transaction);
 };
 
 const outboundPendingHandler = async (transaction: Transaction) => {
-  try {
-    await Promise.all(
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) => internalTransaction.type === 'outbound',
-        )
-        .map(async (internalTransaction) => {
+  await Promise.all(
+    transaction.internalTransactions
+      .filter((internalTransaction) => internalTransaction.type === 'outbound')
+      .map(async (internalTransaction) => {
+        try {
           const publicClient = createPublicClient({
             chain: getChainByShortName(internalTransaction.chainShortName),
             transport: getTrasportForChainShortName(
@@ -203,33 +195,25 @@ const outboundPendingHandler = async (transaction: Transaction) => {
             hash: internalTransaction.hash!,
           });
           internalTransaction.status = receipt.status;
-        }),
-    );
-    if (
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) => internalTransaction.type === 'outbound',
-        )
-        .every(
-          (internalTransaction) => internalTransaction.status === 'success',
-        )
-    ) {
-      transaction.status = 'success';
-    } else if (
-      transaction.internalTransactions
-        .filter(
-          (internalTransaction) => internalTransaction.type === 'outbound',
-        )
-        .some(
-          (internalTransaction) => internalTransaction.status === 'reverted',
-        )
-    ) {
-      transaction.status = 'outbound_pending';
-    }
-    updateTransaction(transaction);
-  } catch (e) {
-    console.log('The Transaction may not be processed on a block yet.');
+        } catch (e) {
+          console.log('The Transaction may not be processed on a block yet.');
+        }
+      }),
+  );
+  if (
+    transaction.internalTransactions
+      .filter((internalTransaction) => internalTransaction.type === 'outbound')
+      .every((internalTransaction) => internalTransaction.status === 'success')
+  ) {
+    transaction.status = 'success';
+  } else if (
+    transaction.internalTransactions
+      .filter((internalTransaction) => internalTransaction.type === 'outbound')
+      .some((internalTransaction) => internalTransaction.status === 'reverted')
+  ) {
+    transaction.status = 'outbound_pending';
   }
+  updateTransaction(transaction);
 };
 
 export const run = async () => {
