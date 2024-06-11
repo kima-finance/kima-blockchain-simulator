@@ -46,6 +46,18 @@ export const transferFrom = async ({
 
   const token = TOKEN_ADDRESSES[originChainShortName][symbol];
 
+  const gas = await originPublicClient.estimateContractGas({
+    address: token.address,
+    abi: erc20Abi,
+    functionName: 'transferFrom',
+    account: poolAccount,
+    args: [
+      originAddress as `0x${string}`,
+      poolAccount.address,
+      parseUnits((Number(amount) + Number(fee)).toString(), token.decimals),
+    ],
+  });
+
   const { request } = await originPublicClient.simulateContract({
     account: poolAccount,
     address: token.address,
@@ -56,6 +68,7 @@ export const transferFrom = async ({
       poolAccount.address,
       parseUnits((Number(amount) + Number(fee)).toString(), token.decimals),
     ],
+    gas,
   });
   const hash = await originWalletClient.writeContract(request);
   console.log('tx hash', hash);
@@ -87,6 +100,18 @@ export const transferTo = async ({
 
   const token = TOKEN_ADDRESSES[targetChainShortName][symbol];
 
+  const gas = await targetPublicClient.estimateContractGas({
+    account: poolAccount,
+    address: token.address,
+    abi: erc20Abi,
+    functionName: 'transferFrom',
+    args: [
+      poolAccount.address,
+      targetAddress as `0x${string}`,
+      parseUnits(amount.toString(), token.decimals),
+    ],
+  });
+
   const { request } = await targetPublicClient.simulateContract({
     account: poolAccount,
     address: token.address,
@@ -97,6 +122,7 @@ export const transferTo = async ({
       targetAddress as `0x${string}`,
       parseUnits(amount.toString(), token.decimals),
     ],
+    gas,
   });
   const hash = await targetWalletClient.writeContract(request);
   console.log('tx hash', hash);
