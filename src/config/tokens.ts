@@ -17,6 +17,18 @@ export const TOKEN_ADDRESSES: {
       decimals: 18,
     },
   },
+  'arb-sep': {
+    LINK: {
+      address: '0x78dcC5aDB0CC63bf3E3Bf25e6331649F4711D372',
+      decimals: 18,
+    },
+  },
+  holesky: {
+    LINK: {
+      address: '0x78dcC5aDB0CC63bf3E3Bf25e6331649F4711D372',
+      decimals: 18,
+    },
+  },
   polygonamoy: {
     USDC: {
       address: '0x78dcC5aDB0CC63bf3E3Bf25e6331649F4711D372',
@@ -26,13 +38,24 @@ export const TOKEN_ADDRESSES: {
 };
 
 export const getTrasportForChainShortName = (chainShortName: string) => {
-  return chainShortName === 'sep'
-    ? http(
+  switch (chainShortName) {
+    case 'sep':
+      return http(
         `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-      )
-    : chainShortName === 'polygonamoy'
-      ? http(
-          `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
-        )
-      : http();
+      );
+    case 'polygonamoy':
+      return http(
+        `https://polygon-amoy.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      );
+    case 'arb-sep':
+      return http(
+        `https://arb-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      );
+    case 'holesky':
+      return http(
+        `https://eth-holesky.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      );
+    default:
+      return http();
+  }
 };
