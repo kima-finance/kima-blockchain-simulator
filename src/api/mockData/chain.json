@@ -1,0 +1,153 @@
+{
+  "Chain": [
+    {
+      "id": "0",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x5FF59Bf2277A1e6bA9bB8A38Ea3F9ABfd3d9345a"
+        },
+        {
+          "id": "0",
+          "symbol": "USDC",
+          "address": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "1",
+      "name": "Polygon",
+      "symbol": "POL",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x30171cfb10ed578814a22475a190306776bc8392"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "2",
+      "name": "Avalanche-C",
+      "symbol": "AVX",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x5d8598Ce65f15f14c58aD3a4CD285223c8e76a2E"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "3",
+      "name": "Solana",
+      "symbol": "SOL",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "9YSFWfU9Ram6mAo2QP9zsTnA8yFkkkFGEs3kGgjtQKvp"
+        }
+      ],
+      "disabled": false,
+      "isEvm": false
+    },
+    {
+      "id": "4",
+      "name": "BinanceSmartChain",
+      "symbol": "BSC",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x3eb36be2c3FD244139756F681420637a2a9464e3"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "5",
+      "name": "Polygon zkEVM",
+      "symbol": "ZKE",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x2cf79df2879902a2fc06329b1760e0f2ad9a3a47"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "6",
+      "name": "Arbitrum",
+      "symbol": "ARB",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x2cf79df2879902a2fc06329b1760e0f2ad9a3a47"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "7",
+      "name": "Optimism",
+      "symbol": "OPT",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "0x2cf79df2879902a2fc06329b1760e0f2ad9a3a47"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "8",
+      "name": "Tron",
+      "symbol": "TRX",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "USDK",
+          "address": "TEuRmCALTUY2syY1EE6mMYnyfmNfFfMpYz"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    },
+    {
+      "id": "9",
+      "name": "XDC Network",
+      "symbol": "XDC",
+      "tokens": [
+        {
+          "id": "0",
+          "symbol": "FXD",
+          "address": "0x2A63856eba3F3A1B07B6Cf3296D5e6f601E26044"
+        }
+      ],
+      "disabled": false,
+      "isEvm": true
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "10"
+  }
+}

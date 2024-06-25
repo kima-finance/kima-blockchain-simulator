@@ -1,0 +1,17 @@
+{
+  "tssPubkey": [
+    {
+      "index": "TSS_PUBKEY_INDEX",
+      "tssPubkey": "kimapub1addwnpepq0szzed9vk30y3uw29sj998mycdmqswp2mdg3egd8gs990m695667udn45s",
+      "tssPubkeyEddsa": "ArW4YBDLXPbJmSXGbkr4mAKeg4r5Kn9mfQhgLaKMVLxA",
+      "ecdsa": "0x1c1d5ae77231824c4e396572ebe2c4b4c79d05e0",
+      "ecdsaPubkey": "29mryRBCuVrk6V94Y8qaeACbwCSAhtgJrJRtDzE5DDwhg",
+      "eddsa": "ArW4YBDLXPbJmSXGbkr4mAKeg4r5Kn9mfQhgLaKMVLxA",
+      "reserved": ""
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "1"
+  }
+}

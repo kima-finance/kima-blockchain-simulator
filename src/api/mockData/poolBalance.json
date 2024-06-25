@@ -1,0 +1,133 @@
+{
+  "poolBalance": [
+    {
+      "index": "ARB",
+      "chainName": "ARB",
+      "balance": [
+        {
+          "amount": "100358.893700000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "0.098828193870000000"
+    },
+    {
+      "index": "AVX",
+      "chainName": "AVX",
+      "balance": [
+        {
+          "amount": "100832.870000000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "0.213814550000000000"
+    },
+    {
+      "index": "BSC",
+      "chainName": "BSC",
+      "balance": [
+        {
+          "amount": "110851.325200000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "0.180766257900000000"
+    },
+    {
+      "index": "ETH",
+      "chainName": "ETH",
+      "balance": [
+        {
+          "amount": "100275.466900000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        },
+        {
+          "amount": "100275",
+          "tokenSymbol": "USDC",
+          "decimal": "6"
+        }
+      ],
+      "nativeGasAmount": "0.173452418300000000"
+    },
+    {
+      "index": "OPT",
+      "chainName": "OPT",
+      "balance": [
+        {
+          "amount": "99639.000000000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "0.099804414650000000"
+    },
+    {
+      "index": "POL",
+      "chainName": "POL",
+      "balance": [
+        {
+          "amount": "99699.380000000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "9.698315218000000000"
+    },
+    {
+      "index": "SOL",
+      "chainName": "SOL",
+      "balance": [
+        {
+          "amount": "110744.550000000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "6"
+        }
+      ],
+      "nativeGasAmount": "0.199580000000000000"
+    },
+    {
+      "index": "TRX",
+      "chainName": "TRX",
+      "balance": [
+        {
+          "amount": "99283.130000000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "334.377140000000000000"
+    },
+    {
+      "index": "ZKE",
+      "chainName": "ZKE",
+      "balance": [
+        {
+          "amount": "99412.460000000000000000",
+          "tokenSymbol": "USDK",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "0.097554607090000000"
+    },
+    {
+      "index": "XDC",
+      "chainName": "XDC",
+      "balance": [
+        {
+          "amount": "1000000000",
+          "tokenSymbol": "FXD",
+          "decimal": "18"
+        }
+      ],
+      "nativeGasAmount": "1000000000"
+    }
+  ],
+  "pagination": {
+    "next_key": null,
+    "total": "10"
+  }
+}

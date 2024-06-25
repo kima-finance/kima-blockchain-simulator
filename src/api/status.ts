@@ -10,22 +10,25 @@ type StatusResponse = {
   transaction: Transaction | null;
 };
 
-router.get<{}, StatusResponse>('/', async (req, res) => {
-  const { id } = req.query;
+router.get<{ transactionId: string }, StatusResponse>(
+  '/:transactionId',
+  async (req, res) => {
+    const { transactionId } = req.params;
 
-  if (!id) {
-    res.status(400).json({ transaction: null });
-    return;
-  }
+    if (!transactionId) {
+      res.status(400).json({ transaction: null });
+      return;
+    }
 
-  const transaction = getTransaction(id as `0x${string}`);
+    const transaction = getTransaction(transactionId as `0x${string}`);
 
-  if (!transaction) {
-    res.status(404).json({ transaction: null });
-    return;
-  }
+    if (!transaction) {
+      res.status(404).json({ transaction: null });
+      return;
+    }
 
-  res.json({ transaction });
-});
+    res.json({ transaction });
+  },
+);
 
 export default router;
